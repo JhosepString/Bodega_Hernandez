@@ -33,6 +33,6 @@ INSERT INTO producto (nombre, precio, stock) VALUES
 ('arroz', 4.80, 18),
 ('aceite', 12.00, 25),
 ('leche', 4.01, 30),
-('azúcar', 3.90, 12),
-('atún', 6.50, 0),
+('azucar', 3.90, 12),
+('atun', 6.50, 0),
 ('gaseosa', 2.50, 40);

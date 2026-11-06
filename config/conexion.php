@@ -1,8 +1,9 @@
 <?php
 
-function conectar(): PDO
+function conectar(?string $envPath = null): PDO
 {
-    $config = require __DIR__ . '/env.php';
+    $configPath = $envPath ?? __DIR__ . '/env.php';
+    $config = require $configPath;
     $db = $config['db'] ?? [];
 
     $dsn = sprintf(

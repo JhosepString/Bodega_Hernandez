@@ -1,25 +1,25 @@
 # Casos de prueba
 
-| ID | Regla | Tecnica | Entrada exacta | Resultado esperado | Nivel |
+| ID | Regla | Técnica | Entrada exacta | Resultado esperado | Nivel |
 |---|---|---|---|---|---|
-| CP-01 | R1 | Valores limite | Producto con stock 10, cantidad 10 | La venta se acepta y el stock final queda en 0 | Unitaria |
-| CP-02 | R1 | Valores limite | Producto con stock 10, cantidad 9 | La venta se acepta y el stock final queda en 1 | Unitaria |
-| CP-03 | R1 | Valores limite | Producto con stock 10, cantidad 11 | La venta se rechaza con error de stock insuficiente y el stock no cambia | Unitaria |
-| CP-04 | R1 | Valores limite | Producto con stock 0, cantidad 1 | La venta se rechaza porque no hay stock disponible | Unitaria |
-| CP-05 | R2 | Valores limite | Subtotal 100,00 exacto | No se aplica descuento y el total es 100,00 | Unitaria |
-| CP-06 | R2 | Valores limite | Subtotal 100,01 | Se aplica un descuento del 5% sobre 100,01 y el total queda en 95,01 (aprox.) | Unitaria |
-| CP-07 | R2 | Valores limite | Subtotal 99,99 | No se aplica descuento y el total es 99,99 | Unitaria |
-| CP-08 | R3 | Valores limite | Cantidad 0 | La venta se rechaza por cantidad invalida y no se modifica el stock | Unitaria |
-| CP-09 | R3 | Valores limite | Cantidad -1 | La venta se rechaza por cantidad invalida y no se modifica el stock | Unitaria |
-| CP-10 | R3 | Valores limite | Cantidad 1 | La venta se acepta, porque es un entero mayor que cero | Unitaria |
-| CP-11 | R3 | Valores limite | Cantidad 1,5 | La venta se rechaza por cantidad invalida y no se modifica el stock | Unitaria |
-| CP-12 | R3 | Valores limite | Cantidad igual al stock mas uno | Si el stock es 5, cantidad 6; la venta se rechaza por stock insuficiente | Unitaria |
-| CP-13 | R4 | Tabla de decision | Venta valida con dos productos, stock inicial 5 y 7, cantidades 3 y 2 | La venta se confirma y ambos stocks se reducen en la misma transaccion | Integracion |
-| CP-14 | R4 | Tabla de decision | Venta invalida por stock insuficiente | Un producto tiene stock 2 y la cantidad solicitada es 3 | La venta se rechaza y el stock de todos los productos permanece igual | Integracion |
-| CP-15 | R1 y R4 | Valores limite | Venta con cantidad igual al stock y stock inicialmente 5 | La venta se acepta y el stock final queda en 0 | Integracion |
-| CP-16 | R2 y R4 | Valores limite | Venta con subtotal 100,01 y stock suficiente | Se aplica descuento y la venta confirma con stock actualizado | E2E |
-| CP-17 | R3 | E2E manual | Cliente valido, producto valido, cantidad 0 en formulario | Se muestra error de cantidad invalida y no se registra la venta | E2E |
-| CP-18 | R1 | E2E manual | Cliente valido, producto con stock 0, cantidad 1 | Se muestra error de stock insuficiente y no se registra la venta | E2E |
+| CP-01 | R1 | Valor límite (en el borde) | hayStock(cantidad 10, stock 10) | true (venta válida) | Unitaria |
+| CP-02 | R1 | Valor límite (debajo) | hayStock(cantidad 9, stock 10) | true | Unitaria |
+| CP-03 | R1 | Valor límite (encima) | hayStock(cantidad 11, stock 10) | false (rechazo) | Unitaria |
+| CP-04 | R1 | Partición (agotado) | hayStock(cantidad 1, stock 0) | false (rechazo) | Unitaria |
+| CP-05 | R2 | Valor límite (en el borde) | subtotal 100,00 | descuento 0,00; total 100,00 | Unitaria |
+| CP-06 | R2 | Valor límite (encima) | subtotal 100,01 | descuento 5,00; total 95,01 | Unitaria |
+| CP-07 | R2 | Valor límite (debajo) | subtotal 99,99 | descuento 0,00; total 99,99 | Unitaria |
+| CP-08 | R3 | Valor límite | validarCantidad("0") | false | Unitaria |
+| CP-09 | R3 | Partición (negativos) | validarCantidad("-1") | false | Unitaria |
+| CP-10 | R3 | Valor límite (mínimo válido) | validarCantidad("1") | true | Unitaria |
+| CP-11 | R3 | Partición (decimales) | validarCantidad("1.5") y validarCantidad("1,5") | false | Unitaria |
+| CP-12 | R3 | Partición (no numérico) | validarCantidad("") y validarCantidad("abc") | false | Unitaria |
+| CP-13 | R4 | Tabla de decisión (venta válida) | bodega_test: producto A stock 5, B stock 7; vender A×3 y B×2 | stock A = 2, B = 5; 1 fila en venta y 2 en detalle_venta | Integración |
+| CP-14 | R4 | Tabla de decisión (una línea falla) | bodega_test: A stock 5, B stock 2; vender A×1 y B×3 | excepción; stock A = 5, B = 2; 0 filas en venta y detalle_venta | Integración |
+| CP-15 | R1 + R4 | Valor límite | bodega_test: producto stock 5; vender 5 | venta registrada; stock final 0 | Integración |
+| CP-16 | R2 + R4 | Valor límite | Navegador: Aceite×8 + Leche×1 (subtotal 100,01) | mensaje: descuento S/ 5,00, total S/ 95,01; en index.php el aceite baja 8 y la leche 1 | E2E |
+| CP-17 | R3 | Valor límite | Navegador: cliente Ana, Arroz, cantidad 0 | «Venta rechazada…cantidad…»; stock del arroz igual en index.php | E2E |
+| CP-18 | R1 | Partición (agotado) | Navegador: cliente Ana, Atún (stock 0), cantidad 1 | «Venta rechazada…stock insuficiente…»; atún sigue en 0 | E2E |
 
 Notas:
 - Los casos CP-01 a CP-12 cubren las fronteras de cantidad y descuento en forma directa.

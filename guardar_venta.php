@@ -68,9 +68,11 @@ try {
     echo '<p><a href="index.php">Volver al catalogo</a> | <a href="venta.php">Nueva venta</a></p>';
     echo '</body></html>';
 } catch (Throwable $e) {
+    error_log('Error al guardar la venta: ' . $e->getMessage());
+
     echo '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Error en venta</title></head><body>';
     echo '<h1>Error al guardar la venta</h1>';
-    echo '<p>' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8') . '</p>';
+    echo '<p>No se pudo guardar la venta. Por favor, intente nuevamente.</p>';
     echo '<p><a href="venta.php">Intentar nuevamente</a></p>';
     echo '</body></html>';
 }

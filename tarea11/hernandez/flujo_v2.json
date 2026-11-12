@@ -1,0 +1,195 @@
+{
+  "name": "Consulta bodega – Hernández",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "bodega",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -208,
+        -112
+      ],
+      "webhookId": "bodega-hernandez",
+      "id": "3561d2b3-a536-4290-b6a6-e8858ad0207a"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.pregunta }}",
+        "options": {
+          "systemMessage": "Eres el asistente de la bodega Doña Rosa de San Vicente de Cañete. Responde en español, en una sola oración, con tono amable. Si no sabes la respuesta, dilo. Si la pregunta requiere cálculos, usa la herramienta de calculadora. Si requiere datos de productos, usa la herramienta de productos."
+        }
+      },
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        48,
+        -112
+      ],
+      "id": "96c04864-7e43-4cd8-bbaf-caa403cab1c2"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3.1-flash-lite",
+        "options": {}
+      },
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        112
+      ],
+      "id": "3a77ffa1-68a8-4d60-ae22-f54756f28f58",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "2r9sDDhzuSTWkzjh",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.body.cliente ?? 'anonimo' }}"
+      },
+      "name": "Simple Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        80,
+        112
+      ],
+      "id": "6f8b5c1e-8a51-4e5f-9132-5e19a3399f80"
+    },
+    {
+      "parameters": {},
+      "name": "Calculator",
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        240,
+        112
+      ],
+      "id": "2855f33d-29b7-42fa-80e0-0fbfae41d6dd"
+    },
+    {
+      "parameters": {
+        "name": "productos",
+        "description": "Devuelve la lista de productos de la bodega con precio y stock",
+        "jsCode": "return JSON.stringify([{nombre:'Arroz Costeño 5 kg',precio:24.5,stock:12},{nombre:'Aceite Primor 1 L',precio:9.8,stock:0},{nombre:'Leche Gloria',precio:4.2,stock:30}]);"
+      },
+      "name": "productos",
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        400,
+        112
+      ],
+      "id": "5c8a2c9b-36f9-4d18-a90e-b0020e690c32"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"respuesta\": {{ JSON.stringify($json.output) }} }",
+        "options": {}
+      },
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        416,
+        -112
+      ],
+      "id": "1e974b22-9eeb-4daf-bb9b-c9da8f16c45f"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "productos": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "2f76265c-9e6c-430b-87c5-80f3ec273b04",
+  "meta": {
+    "instanceId": "10dc3b7d7b5234cfc4b77f0df5fff8df1e7dd773ff88a2384b9a67caad65c1e6"
+  },
+  "nodeGroups": [],
+  "id": "RhiUuKcx89QbFyZO",
+  "tags": []
+}

@@ -1,0 +1,23 @@
+Flujo v2 (AI Agent) - Consulta bodega - Hernandez
+Cliente de prueba: jose (Simple Memory, ventana de 5)
+
+P1: ¿Cuánto cuestan 3 leches?
+R1: ¡Hola! Las 3 leches Gloria le costarían 12.60 soles en total.
+Herramientas usadas: productos -> Calculator
+Secuencia en Logs: Simple Memory -> Gemini -> productos -> Gemini -> Calculator -> Gemini -> Simple Memory
+
+P2: ¿Tienen aceite?
+R2: ¡Hola! Lamentablemente, en este momento no contamos con stock de aceite, pero si necesitas alguna otra cosa, con gusto te ayudaré.
+Herramientas usadas: productos (no usó Calculator)
+Secuencia en Logs: Simple Memory -> Gemini -> productos -> Gemini -> Simple Memory
+
+P3: ¿Qué me recomiendas para el desayuno?
+R3: Para un desayuno delicioso y nutritivo, le recomiendo nuestra leche Gloria, que está disponible a solo 4.20 soles cada una.
+Herramientas usadas: productos (no usó Calculator)
+Secuencia en Logs: Simple Memory -> Gemini -> productos -> Gemini -> Simple Memory
+Observación: la guía esperaba que no usara herramientas; el agente decidió consultar el catálogo para recomendar solo productos disponibles.
+
+Evidencia de memoria (Simple Memory, mismo cliente "jose"):
+Al repetir P1 después de la pregunta del desayuno, el agente respondió:
+"¡Hola! El costo total por las 3 leches Gloria es de 12.60 soles, ¡espero que disfrute su desayuno!"
+El agente recordó el turno anterior (desayuno) gracias a la memoria con Session ID = cliente.

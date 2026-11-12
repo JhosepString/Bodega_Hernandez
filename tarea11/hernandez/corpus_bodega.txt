@@ -1,0 +1,59 @@
+P: ¿A qué hora abren?
+R: De lunes a sábado de 7:00 a 21:00; los domingos de 8:00 a 14:00.
+
+P: ¿Atienden los feriados?
+R: Sí, en feriados atendemos con horario de domingo, de 8:00 a 14:00.
+
+P: ¿Aceptan Yape o Plin?
+R: Sí, aceptamos Yape y Plin al número que figura en el mostrador; también efectivo.
+
+P: ¿Puedo pagar con tarjeta?
+R: Por ahora no aceptamos tarjeta; solo efectivo, Yape y Plin.
+
+P: ¿Hacen delivery?
+R: Sí, dentro de San Vicente de Cañete, por pedidos desde S/ 30,00; el envío cuesta S/ 3,00.
+
+P: ¿Cómo hago un pedido por delivery?
+R: Escríbenos por WhatsApp con tu lista y dirección; confirmamos el total y el tiempo de entrega, normalmente menos de 45 minutos.
+
+P: ¿Hasta qué hora hacen delivery?
+R: Recibimos pedidos de delivery hasta las 20:00.
+
+P: ¿Puedo devolver un producto?
+R: Sí, dentro de las 24 horas con tu comprobante, si el producto está cerrado y en buen estado.
+
+P: ¿Qué hago si un producto está vencido o en mal estado?
+R: Tráelo con tu comprobante y te lo cambiamos de inmediato o te devolvemos el dinero.
+
+P: ¿Cuáles son los productos más vendidos?
+R: Arroz Costeño, Aceite Primor, Leche Gloria, Azúcar rubia, Atún Florida e Inca Kola.
+
+P: ¿Qué marca de arroz venden?
+R: Arroz Costeño, en bolsa de 1 kg y de 5 kg.
+
+P: ¿Tienen descuentos?
+R: Sí, si tu compra pasa de S/ 100,00 te descontamos 5 % del subtotal; con S/ 100,00 exactos no aplica.
+
+P: ¿El descuento se aplica a cualquier producto?
+R: Sí, el 5 % se aplica sobre el subtotal de toda la compra, sin importar qué productos lleves.
+
+P: ¿Puedo juntar dos compras pequeñas para llegar al descuento?
+R: No, el descuento se calcula por cada venta registrada; las compras separadas no se suman.
+
+P: ¿Venden al por mayor?
+R: Sí, para bodegas y restaurantes vendemos por caja o saco con precio especial; consulta la lista con Doña Rosa.
+
+P: ¿Cuál es la compra mínima para precio por mayor?
+R: Desde 1 caja o saco completo del mismo producto, por ejemplo 12 aceites o un saco de 50 kg de arroz.
+
+P: ¿Pueden separarme pedidos grandes?
+R: Sí, con un adelanto del 50 % por Yape te separamos el pedido hasta por 2 días.
+
+P: ¿Qué pasa si un producto está agotado?
+R: Te avisamos al momento y te ofrecemos otra marca; normalmente reponemos stock en 2 o 3 días.
+
+P: ¿Dónde están ubicados?
+R: En San Vicente de Cañete, cerca del mercado; pregunta por la bodega Doña Rosa.
+
+P: ¿Dan boleta?
+R: Sí, entregamos boleta simple; por ahora no emitimos factura electrónica.

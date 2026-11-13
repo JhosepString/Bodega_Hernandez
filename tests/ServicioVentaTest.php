@@ -65,6 +65,7 @@ final class ServicioVentaTest extends TestCase
     {
         $this->assertSame(false, ServicioVenta::validarCantidad("1.5"));
         $this->assertSame(false, ServicioVenta::validarCantidad("1,5"));
+        $this->assertSame(false, ServicioVenta::validarCantidad("1e3"));
     }
 
     public function testRechazaCantidadCuandoEsMayorAlStockDisponible(): void

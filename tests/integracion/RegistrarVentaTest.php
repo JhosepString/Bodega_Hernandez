@@ -106,4 +106,14 @@ class RegistrarVentaTest extends TestCase
         $ventas = (int) $this->pdo->query('SELECT COUNT(*) FROM venta')->fetchColumn();
         $this->assertSame(0, $ventas);
     }
+
+    public function testRegistrarVentaRechazaLaSumaDeLineasQueSuperaElStock(): void
+    {
+        $this->expectException(RuntimeException::class);
+
+        $this->repositorio->registrarVenta('Cliente prueba', [
+            ['producto_id' => 1, 'cantidad' => 4],
+            ['producto_id' => 1, 'cantidad' => 7],
+        ]);
+    }
 }

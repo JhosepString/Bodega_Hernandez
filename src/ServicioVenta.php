@@ -14,9 +14,22 @@ class ServicioVenta
 
     public static function validarCantidad($cantidad): bool
     {
-        return is_numeric($cantidad)
-            && floor((float) $cantidad) == (float) $cantidad
-            && (int) $cantidad > 0;
+        if (is_int($cantidad) || is_float($cantidad)) {
+            return is_finite($cantidad)
+                && floor($cantidad) == $cantidad
+                && $cantidad > 0;
+        }
+
+        if (!is_string($cantidad) && !is_numeric($cantidad)) {
+            return false;
+        }
+
+        $valor = trim((string) $cantidad);
+        if ($valor === '' || !preg_match('/^[+]?\d+$/', $valor)) {
+            return false;
+        }
+
+        return (int) $valor > 0;
     }
 
     public static function hayStock(int $cantidad, int $stock): bool

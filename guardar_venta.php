@@ -24,13 +24,14 @@ try {
             continue;
         }
 
-        $cantidad = (int) $cantidadesPost[$index];
+        $cantidad = $cantidadesPost[$index];
         $productoId = (int) $productoId;
 
         if (!ServicioVenta::validarProductoId($productoId) || !ServicioVenta::validarCantidad($cantidad)) {
             throw new InvalidArgumentException('Cada cantidad debe ser un entero mayor que cero.');
         }
 
+        $cantidad = (int) $cantidad;
         $producto = $repo->obtenerProducto($productoId);
         if (!$producto) {
             throw new RuntimeException('El producto seleccionado no existe.');

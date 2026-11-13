@@ -37,20 +37,23 @@ class RepositorioMySQL
         }
 
         $subtotal = 0.0;
+        $stockPorProducto = [];
         foreach ($items as $item) {
             $productoId = (int) ($item['producto_id'] ?? $item['id'] ?? 0);
-            $cantidad = (int) ($item['cantidad'] ?? 0);
+            $cantidad = $item['cantidad'] ?? 0;
 
             if (!ServicioVenta::validarProductoId($productoId) || !ServicioVenta::validarCantidad($cantidad)) {
                 throw new InvalidArgumentException('La cantidad de cada producto debe ser un entero mayor que cero.');
             }
 
+            $cantidad = (int) $cantidad;
             $producto = $this->obtenerProducto($productoId);
             if (!$producto) {
                 throw new RuntimeException('El producto seleccionado no existe.');
             }
 
-            if (!ServicioVenta::hayStock($cantidad, (int) $producto['stock'])) {
+            $stockPorProducto[$productoId] = ($stockPorProducto[$productoId] ?? 0) + $cantidad;
+            if (!ServicioVenta::hayStock($stockPorProducto[$productoId], (int) $producto['stock'])) {
                 throw new RuntimeException('No hay stock suficiente para el producto: ' . $producto['nombre']);
             }
 
@@ -76,7 +79,12 @@ class RepositorioMySQL
 
             foreach ($items as $item) {
                 $productoId = (int) ($item['producto_id'] ?? $item['id'] ?? 0);
-                $cantidad = (int) ($item['cantidad'] ?? 0);
+                $cantidad = $item['cantidad'] ?? 0;
+                if (!ServicioVenta::validarCantidad($cantidad)) {
+                    throw new InvalidArgumentException('La cantidad de cada producto debe ser un entero mayor que cero.');
+                }
+
+                $cantidad = (int) $cantidad;
                 $producto = $this->obtenerProducto($productoId);
 
                 if (!$producto) {
